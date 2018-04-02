@@ -123,6 +123,26 @@ int main()
 			/**Masks the GPIOA in the bit of interest*/
 			inputValueSW3 = inputValueSW3 & 0x10;
 
+			if(inputValueSW2 == 0 && inputValueSW3 != 0)
+			{
+				currentState = currentState->next[0];
+			}
+			else if(inputValueSW2 != 0 && inputValueSW3 == 0)
+			{
+				currentState = currentState->next[1];
+			}
+			else if(inputValueSW2 == 0 && inputValueSW3 == 0)
+			{
+				currentState = currentState->next[2];
+			}
+			else
+			{
+
+			}
+
+			currentState->ColorLED();
+
+			while((GPIOC->PDIR & 0x40) != 0 && (GPIOA->PDIR & 0x10) != 0);
 		}
 	return 0;
 }
