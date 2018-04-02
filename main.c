@@ -72,7 +72,58 @@ const ChangeLED StateMachine[6] =
 };
 int main()
 {
+	ChangeLED* currentState = YELLOW;
 
+		GPIO_clockGating(GPIO_A);
+		GPIO_clockGating(GPIO_B);
+		GPIO_clockGating(GPIO_C);
+		GPIO_clockGating(GPIO_E);
+		/** Codigo de la tarea 3*/
+		/**Variables to capture the input values*/
+		uint32 inputValueSW2 = 0;
+		uint32 inputValueSW3 = 0;
+
+		/**Pin control configuration of GPIOB pin22 and pin21 as GPIO*/
+		PORTB->PCR[21] = 0x00000100;
+		PORTB->PCR[22] = 0x00000100;
+
+		/**Pin control configuration of GPIOC pin6 as GPIO with is pull-up resistor enabled*/
+		PORTC->PCR[6] = 0x00000103;
+		/**Pin control configuration of GPIOA pin4 as GPIO with is pull-up resistor enabled*/
+		PORTA->PCR[4] = 0x00000103;
+
+		/**Pin control configuration of GPIOE pin26 as GPIO*/
+		PORTE->PCR[26] = 0x00000100;
+		/**Assigns a safe value to the output pin21 of the GPIOB*/
+		GPIOB->PDOR = 0x00200000;
+		/**Assigns a safe value to the output pin22 of the GPIOB*/
+		GPIOB->PDOR |= 0x00400000;
+		/**Assigns a safe value to the output pin26 of the GPIOE*/
+		GPIOE->PDOR |= 0x04000000;
+
+		GPIOC->PDDR &=~(0x40);
+		GPIOA->PDDR &=~(0x10);
+
+		/**Configures GPIOB pin21 as output*/
+		GPIOB->PDDR = 0x00200000;
+		/**Configures GPIOB pin22 as output*/
+		GPIOB->PDDR |= 0x00400000;
+		/**Configures GPIOE pin26 as output*/
+		GPIOE->PDDR |= 0x04000000;
+
+		for(;;)
+		{
+			/**Reads all the GPIOC*/
+			inputValueSW2 = GPIOC->PDIR;
+			/**Masks the GPIOC in the bit of interest*/
+			inputValueSW2 = inputValueSW2 & 0x40;
+
+			/**Reads all the GPIOA*/
+			inputValueSW3 = GPIOA->PDIR;
+			/**Masks the GPIOA in the bit of interest*/
+			inputValueSW3 = inputValueSW3 & 0x10;
+
+		}
 	return 0;
 }
 
