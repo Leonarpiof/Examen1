@@ -117,17 +117,19 @@ int main()
 			inputValueSW2 = GPIOC->PDIR;
 			/**Masks the GPIOC in the bit of interest*/
 			inputValueSW2 = inputValueSW2 & 0x40;
+			inputValueSW2 >>= 6;
 
 			/**Reads all the GPIOA*/
 			inputValueSW3 = GPIOA->PDIR;
 			/**Masks the GPIOA in the bit of interest*/
 			inputValueSW3 = inputValueSW3 & 0x10;
+			inputValueSW3 >>= 4;
 
-			if(inputValueSW2 == 0 && inputValueSW3 != 0)
+			if(inputValueSW2 != 0 && inputValueSW3 == 0)
 			{
 				currentState = currentState->next[0];
 			}
-			else if(inputValueSW2 != 0 && inputValueSW3 == 0)
+			else if(inputValueSW2 == 0 && inputValueSW3 != 0)
 			{
 				currentState = currentState->next[1];
 			}
