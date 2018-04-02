@@ -76,3 +76,44 @@ int main()
 	return 0;
 }
 
+void printYellow()
+{
+	/** Codigo de la tarea 3*/
+	GPIOB->PDOR = (0x00200000);
+	GPIOE->PDOR = (0x0B000000);
+}
+
+void printRed()
+{
+	/** Codigo de la tarea 3*/
+	GPIOB->PDOR = (0x00200000);
+	GPIOE->PDOR = (0x04000000);
+}
+
+void printPurple()
+{
+	/** Codigo de la tarea 3*/
+	GPIOB->PDOR = (0x00900000);
+	GPIOE->PDOR = (0x04000000);
+}
+
+void printBlue()
+{
+	/** Codigo de la tarea 3*/
+	GPIOB->PDOR = (0x00400000);
+	GPIOE->PDOR = (0x04000000);
+}
+
+void printGreen()
+{
+	/** Codigo de la tarea 3*/
+	GPIOB->PDOR = (0x00600000);
+	GPIOE->PDOR = (0x0B000000);
+}
+
+void printWhite()
+{
+	/** Codigo de la tarea 3*/
+	GPIOB->PDOR = 0;
+	GPIOE->PDOR = (0x0B000000);
+}
