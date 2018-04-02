@@ -143,8 +143,23 @@ int main()
 			}
 
 			currentState->ColorLED();
+			#if 0
+			do
+			{
+				inputValueSW2 = GPIOC->PDIR;
+				/**Masks the GPIOC in the bit of interest*/
+				inputValueSW2 = inputValueSW2 & 0x40;
+				inputValueSW2 >>= 6;
 
-			while((GPIOC->PDIR & 0x40) != 0 && (GPIOA->PDIR & 0x10) != 0);
+				/**Reads all the GPIOA*/
+				inputValueSW3 = GPIOA->PDIR;
+				/**Masks the GPIOA in the bit of interest*/
+				inputValueSW3 = inputValueSW3 & 0x10;
+				inputValueSW3 >>= 4;
+			}while(inputValueSW2 == 0 || inputValueSW3 == 0);
+			#endif
+
+			delay(50000);
 		}
 	return 0;
 }
